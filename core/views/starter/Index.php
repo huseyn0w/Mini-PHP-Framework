@@ -11,11 +11,12 @@
     <title>Bare - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href=" <?php echo APP_ROOT ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   </head>
 
   <body>
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -60,8 +61,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src=" <?php echo APP_ROOT ?>vendor/jquery/jquery.min.js"></script>
+    <script src=" <?php echo APP_ROOT ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 
