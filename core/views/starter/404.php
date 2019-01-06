@@ -1,3 +1,4 @@
+<?php defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

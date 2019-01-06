@@ -1,5 +1,6 @@
 <?php
 
+defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 class Core{
 
     private $controllerName = "Pages";
@@ -10,22 +11,33 @@ class Core{
 
         $url = $this->getURL();
 
-        if(isset($url[0])){
-            if(file_exists('../core/controllers/' . ucwords($url[0]) . '.php')){
+        if (isset($url[0])) {
+            if (file_exists('../core/controllers/' . ucwords($url[0]) . '.php')) {
                 $this->controllerName = ucwords($url[0]);
-                unset($url[0]);
             }
+            else{
+                $this->controllerName = "PageNotFound";
+            }
+            unset($url[0]);
         }
-
-        require_once('../core/controllers/' . $this->controllerName . '.php');
+        
+        if($this->controllerName === "PageNotFound"){
+            require_once('../core/controllers/404.php');
+        }
+        else{
+            require_once('../core/controllers/' . $this->controllerName . '.php');
+        }
 
         $this->controllerName = new $this->controllerName;
 
         if (isset($url[1])) {
             if(method_exists($this->controllerName, ucwords($url[1]))){
-                $this->methodName = ucwords($url[1]);
-                unset($url[1]);
+                $this->methodName = ucwords($url[1]);   
             }
+            else{
+                $this->methodName = "NotFound";
+            }
+            unset($url[1]);
         }
 
         $this->params = $url ? array_values($url) : [];

@@ -1,10 +1,11 @@
 <?php
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
-class Pages extends Controller{
+class PageNotFound extends Controller{
 
     public function Index(){
-        $this->view('index');
+        $this->view('404');
     }
+
 }
  

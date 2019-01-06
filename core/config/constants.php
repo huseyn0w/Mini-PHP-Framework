@@ -1,5 +1,7 @@
 <?php
 
+define("EXTERNAL_ACCESS", "FALSE");
+
 define("APP_ROOT", "http://hwf/public/");
 define("CORE_ROOT", "http://hwf/core/");
 define("CURRENT_TEMPLATE", "starter");

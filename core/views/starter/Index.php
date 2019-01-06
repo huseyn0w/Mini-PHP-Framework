@@ -1,3 +1,4 @@
+<?php defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>HWF - Framework Starter Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
     <link href=" <?php echo APP_ROOT ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +22,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <a class="navbar-brand" href="#">HWF</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,11 +51,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1 class="mt-5">A Bootstrap 4 Starter Template</h1>
-          <p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
+          <h1 class="mt-5">HWF mini PHP-MVC Framework starter page</h1>
+          <p class="lead">You can edit it here: (views/starter/index.php)</p>
+          <p class="lead">Technologies that used here:</p>
           <ul class="list-unstyled">
-            <li>Bootstrap 4.1.3</li>
-            <li>jQuery 3.3.1</li>
+            <li>PHP (7.2) (OOP)</li>
+            <li>MVC</li>
+            <li>PDO</li>
+            <li>MySQL</li>
           </ul>
         </div>
       </div>
