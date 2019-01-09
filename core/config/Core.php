@@ -1,4 +1,5 @@
 <?php
+namespace config;
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 class Core{
@@ -6,6 +7,7 @@ class Core{
     private $controllerName = "Pages";
     private $methodName = "Index";
     private $params = [];
+    private $controllerRoot = '';
 
     public function __construct(){
 
@@ -25,10 +27,18 @@ class Core{
             require_once('../core/controllers/404.php');
         }
         else{
-            require_once('../core/controllers/' . $this->controllerName . '.php');
+            $file2 = ROOT . '\controllers\\' . $this->controllerName . '.php';
+            if(file_exists($file2)){
+                require_once($file2);
+            }
+            else{
+                echo "problem is here! {$file2} <br>";
+            }
         }
 
-        $this->controllerName = new $this->controllerName;
+        
+        $controllerRoot = 'controllers\\'.$this->controllerName;
+        $this->controllerName = new $controllerRoot;
 
         if (isset($url[1])) {
             if(method_exists($this->controllerName, ucwords($url[1]))){

@@ -1,9 +1,11 @@
 <?php
 
 define("EXTERNAL_ACCESS", "FALSE");
+define("FRAMEWOK_SHORTHAND", "FALSE");
 
 define("APP_ROOT", "http://hwf/public/");
 define("CORE_ROOT", "http://hwf/core/");
+define("ROOT", dirname(__DIR__));
 define("CURRENT_TEMPLATE", "starter");
 
 define("DB_HOST", "YOUR DATABASE HOST");
