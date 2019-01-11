@@ -1,5 +1,6 @@
 <?php
 
+namespace controllers;
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 

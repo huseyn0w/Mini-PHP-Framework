@@ -1,3 +1,4 @@
 <?php
-    require_once('../core/bootstrap.php');
+    error_reporting(-1);
+    require_once('../core/FrontController.php');
 ?>

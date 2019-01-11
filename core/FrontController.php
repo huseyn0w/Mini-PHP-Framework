@@ -1,6 +1,7 @@
 <?php
 
 require_once('config/constants.php');
+require_once('helpers/functions.php');
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
@@ -11,9 +12,9 @@ spl_autoload_register(function ($className) {
         require_once $file;
     }
     else{
-        echo 'File '.$file.' not found!';
+        return false;
     }
 });
   
 //Framework start point
-$init = new config\Core;
+$init = new config\Router;

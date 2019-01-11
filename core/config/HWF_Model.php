@@ -15,7 +15,11 @@ class HWF_Model{
 
     }
 
-    public function getby(){
+    public function getBy(){
+
+    }
+
+    private function establishConnection(){
 
     }
 }

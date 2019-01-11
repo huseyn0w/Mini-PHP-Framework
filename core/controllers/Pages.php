@@ -6,12 +6,12 @@ defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
 class Pages extends \config\HWF_Controller {
 
-    public function Index(){
+    public function index(){
         $this->model('pages');
         $this->view('index');
     }
 
-    public function Test(){
+    public function test(){
         echo 'hehey';
     }
 
