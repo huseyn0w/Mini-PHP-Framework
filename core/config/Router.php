@@ -32,12 +32,14 @@ class Router{
                 $obj->$method();
             }
             else{
+                http_response_code(404);
                 require_once('../core/views/' . CURRENT_TEMPLATE . '/404.php');
                 exit;
             }
 
         }
         else{
+            http_response_code(404);
             require_once('../core/views/'. CURRENT_TEMPLATE .'/404.php');
             exit;
         }
@@ -63,13 +65,13 @@ class Router{
                             $this->route[$controller] = $method;
 
 
-
                             if (!isset($this->route['method'])) {
                                 $this->route['method'] = "Index";
                             }
                         }
                     }
                 }
+                //print_arr($this->route);
             }
 
         }
