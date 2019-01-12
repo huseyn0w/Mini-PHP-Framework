@@ -9,9 +9,10 @@ class Router{
 
     private $routesMap = [
         "^$" => ["controller" => "Pages", "method" => "Index"],
-        "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/?$" => []
+        "^register/?$" => ["controller" => "Pages", "method" => "Register"],
+        "^login/?$" => ["controller" => "Pages", "method" => "Login"],
+        "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/?$" => [],
     ];
-
     public function __construct(){
 
 
@@ -45,28 +46,40 @@ class Router{
     {
         $url = $this->getURL();
 
+
         $matchedCount = 0;
 
         foreach ($this->routesMap as $key => $value) {
 
-            if (preg_match("#$key#i", $url, $matches)) {
-                $matchedCount++;
-                foreach ($matches as $controller => $method) {
-                    if ($method == "") {
-                        $this->route = $value;
-                    } 
-                    else {
-                        if (is_string($controller)) {
-                            
-                            $this->route[$controller] = $this->controllerNameFix($method);
+            //print_arr($key);
+            //print_arr($value).'\n';
 
-                            if (!isset($this->route['method'])) {
-                                $this->route['method'] = "Index";
+            if (preg_match("#{$key}#i", $url, $matches)) {
+                $matchedCount++;
+                if(empty($value)){
+                    foreach ($matches as $controller => $method) {
+                        if ($method == "") {
+                            $this->route = $value;
+
+                        } else {
+                            if (is_string($controller)) {
+
+                                $this->route[$controller] = $this->controllerNameFix($method);
+
+                                if (!isset($this->route['method'])) {
+                                    $this->route['method'] = "Index";
+                                }
+
+
+
                             }
                         }
                     }
                 }
-                //print_arr($this->route);
+                else{
+                    $this->route = $value;
+                }
+                break;
             }
 
         }

@@ -15,11 +15,12 @@ spl_autoload_register(function ($className) {
         return false;
     }
 });
+
+$debug = new config\HWF_ErrorHandler;
   
 //Framework start point
 $init = new config\Router;
 
-$debug = new config\HWF_ErrorHandler;
 
 if(DEBUG_MODE){
     error_reporting(0);
