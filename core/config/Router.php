@@ -4,11 +4,6 @@ namespace config;
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 class Router{
 
-    private $controllerName = "Pages";
-    private $methodName = "Index";
-    private $params = [];
-    private $controllerRoot = '';
-
     private $route = [];
 
 
@@ -62,8 +57,8 @@ class Router{
                     } 
                     else {
                         if (is_string($controller)) {
-                            $this->route[$controller] = $method;
-
+                            
+                            $this->route[$controller] = $this->controllerNameFix($method);
 
                             if (!isset($this->route['method'])) {
                                 $this->route['method'] = "Index";
@@ -77,6 +72,15 @@ class Router{
         }
         if($matchedCount == 0) return false;
         return true;
+    }
+
+    private function controllerNameFix($controllername){
+        $pattern = "#[\-_]+#";
+        $replacement = " ";
+        $controllername = preg_replace($pattern, $replacement, $controllername);
+        $controllername = ucwords($controllername);
+        $controllername = str_replace(" ", "", $controllername);
+        return $controllername;
     }
 
     private function getURL(){

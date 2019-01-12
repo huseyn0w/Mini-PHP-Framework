@@ -11,9 +11,6 @@ class Pages extends \config\HWF_Controller {
         $this->view('index');
     }
 
-    public function test(){
-        echo 'hehey';
-    }
 
 }
  

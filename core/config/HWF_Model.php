@@ -2,26 +2,41 @@
 
 namespace config;
 
+
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
-use \PDO;
+use \PDO as PDO;
+use \PDOException as PDOException;
 
 class HWF_Model{
 
     public function __construct(){
-        //$this->establishConnection();
+        $this->establishConnection();
     }
 
     protected function establishConnection(){
+
         try {
-            $dbh = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, array(
-                PDO::ATTR_PERSISTENT => true
-            ));
+            $dbh = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
+            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
         } catch (PDOException $e) {
-            print "Error!: " . $e->getMessage() . "<br/>";
-            die('problem with database!');
+            $file = $e->getFile();
+            $message = $e->getMessage();
+            $errorArray = [
+                [
+                    'filename' => $file, 
+                    'message' => $message
+                ]
+            ];
+            $debug = new HWF_ErrorHandler;
+            $debug->debugHandler($errorArray);
+            exit;
         }
+
     }
+
+    
 
     public function selectAll($tableName)
     {

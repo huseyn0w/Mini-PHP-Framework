@@ -6,8 +6,11 @@ namespace config;
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
 class HWF_ErrorHandler{
-    public function __construct()
+
+    public function debugHandler($errorArray)
     {
-        //echo 'Error Handler has been created!';
+        if (file_exists('../core/config/debug.php')) {
+            require_once('../core/config/debug.php');
+        }
     }
 }

@@ -9,6 +9,6 @@ define("ROOT", dirname(__DIR__));
 define("CURRENT_TEMPLATE", "starter");
 
 define("DB_HOST", "localhost");
-define("DB_USER", "YOUR DATABASE USER");
-define("DB_NAME", "YOUR DATABASE NAME");
-define("DB_PASS", "YOUR DATABASE PASS");
+define("DB_USER", "root");
+define("DB_NAME", "hwf");
+define("DB_PASS", "");

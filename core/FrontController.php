@@ -19,6 +19,8 @@ spl_autoload_register(function ($className) {
 //Framework start point
 $init = new config\Router;
 
+$debug = new config\HWF_ErrorHandler;
+
 if(DEBUG_MODE){
-    $debug = new config\HWF_ErrorHandler;
+    error_reporting(0);
 }
