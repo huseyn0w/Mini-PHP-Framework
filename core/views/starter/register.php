@@ -1,3 +1,11 @@
+<?php 
+  
+  if(is_logged_in()){
+    redirect(HOME_DIR);
+  }
+
+  defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); 
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,10 +17,8 @@
     <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo APP_ROOT ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/style.css" rel="stylesheet">
   </head>
   <style>
     html,
@@ -72,22 +78,26 @@
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
         <div class="form-group">
-            <input type="email"  required name="email" class="form-control" placeholder="E-mail">
+            <input type="email" autocomplete="off"  required name="email" class="form-control register-input input-ajax" placeholder="E-mail">
+            <span class="check-up"></span>
         </div>
         <div class="form-group">
-            <input type="text" required name="login" class="form-control" placeholder="Login">
+            <input type="text" autocomplete="off" required name="login" class="form-control register-input input-ajax" placeholder="Login">
+            <span class="check-up"></span>
         </div>
         <div class="form-group">
-            <input type="password" required name="password" class="form-control" placeholder="Password">
+            <input type="password" required name="password" class="form-control register-input" placeholder="Password">
         </div>
         <div class="form-group">
-            <input type="password" required name="password_confirm" class="form-control" placeholder="Password Confirmation">
+            <input type="password" required name="password_confirm" class="form-control register-input" placeholder="Password Confirmation">
         </div>
         <div class="form-group">
-            <input type="email" required name="name" class="form-control" placeholder="Name">
+            <input type="email" autocomplete="off" required name="name" class="form-control register-input" placeholder="Name">
         </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Register</button>
       <p class="mt-5 mb-3 text-muted">HWF &copy; <?php echo date('Y') ?></p>
     </form>
   </body>
 </html>
+    <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/main.js"></script>

@@ -1,3 +1,8 @@
+<?php
+if(!is_logged_in()){
+  redirect(HOME_DIR . '/login/');
+}
+defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); ?>
 <!DOCTYPE html>
 <html lang="en">
 

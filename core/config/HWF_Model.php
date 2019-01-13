@@ -10,8 +10,9 @@ use \PDOException as PDOException;
 
 class HWF_Model{
 
+
     public function __construct(){
-        $this->establishConnection();
+        
     }
 
     protected function establishConnection(){
@@ -19,7 +20,6 @@ class HWF_Model{
         try {
             $dbh = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
         } catch (PDOException $e) {
             $file = $e->getFile();
             $message = $e->getMessage();
@@ -28,7 +28,7 @@ class HWF_Model{
                 [
                     'type' => 'PDO Exception',
                     'message' => $message,
-                    'filename' => $file, 
+                    'filename' => $file,
                     'line' => $line,
                 ]
             ];
@@ -36,6 +36,8 @@ class HWF_Model{
             $debug->debugHandler($errorArray);
             exit;
         }
+        echo 'salam';
+        return $dbh;
 
     }
 

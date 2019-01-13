@@ -9,9 +9,9 @@ class Router{
 
     private $routesMap = [
         "^$" => ["controller" => "Pages", "method" => "Index"],
-        "^register/?$" => ["controller" => "Pages", "method" => "Register"],
+        "^register/?$" => ["controller" => "Users", "method" => "Register"],
+        "^login/?$" => ["controller" => "Users", "method" => "Login"],
         "^admin/?$" => ["controller" => "Pages", "method" => "Admin"],
-        "^login/?$" => ["controller" => "Pages", "method" => "Login"],
         "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/?$" => [],
     ];
 

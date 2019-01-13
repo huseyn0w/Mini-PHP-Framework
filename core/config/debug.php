@@ -6,9 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Error :(</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo APP_ROOT ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   </head>
 
   <body>

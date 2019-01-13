@@ -1,3 +1,10 @@
+<?php 
+
+if (is_logged_in()) {
+  redirect(HOME_DIR);
+}
+
+defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,7 +16,7 @@
     <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo APP_ROOT ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">

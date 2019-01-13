@@ -1,0 +1,17 @@
+.check-up{
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    background-image: url(loading.svg);
+    background-size: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -55px;
+    display: none;
+}
+
+.form-signin .form-group{
+    position: relative;
+}

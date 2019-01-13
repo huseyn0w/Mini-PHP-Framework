@@ -12,6 +12,6 @@
     <title>HWF - Framework Starter Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   </head>

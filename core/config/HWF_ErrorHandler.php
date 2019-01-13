@@ -53,76 +53,76 @@ class HWF_ErrorHandler{
             );
 
             switch ($errno) {
-                case E_ERROR: // 1 //
+                case E_ERROR:
                     $errno = 'E_ERROR';
                     break;
                 
-                    case E_WARNING: // 2 //
+                    case E_WARNING: 
                     $errno = 'E_WARNING';
                     break;
                     
                 
-                    case E_PARSE: // 4 //
+                    case E_PARSE: 
                     $errno = 'E_PARSE';
                     break;
                     
                 
-                    case E_NOTICE: // 8 //
+                    case E_NOTICE: 
                     $errno = 'E_NOTICE';
                     break;
                     
                 
-                    case E_CORE_ERROR: // 16 //
+                    case E_CORE_ERROR: 
                     $errno = 'E_CORE_ERROR';
                     break;
                     
                 
-                    case E_CORE_WARNING: // 32 //
+                    case E_CORE_WARNING:
                     $errno = 'E_CORE_WARNING';
                     break;
                     
                 
-                    case E_COMPILE_ERROR: // 64 //
+                    case E_COMPILE_ERROR:
                     $errno = 'E_COMPILE_ERROR';
                     break;
                     
                 
-                    case E_COMPILE_WARNING: // 128 //
+                    case E_COMPILE_WARNING: 
                     $errno = 'E_COMPILE_WARNING';
                     break;
                     
                 
-                    case E_USER_ERROR: // 256 //
+                    case E_USER_ERROR: 
                     $errno = 'E_USER_ERROR';
                     break;
                     
                 
-                    case E_USER_WARNING: // 512 //
+                    case E_USER_WARNING:
                     $errno = 'E_USER_WARNING';
                     break;
                     
                 
-                    case E_USER_NOTICE: // 1024 //
+                    case E_USER_NOTICE:
                     $errno = 'E_USER_NOTICE';
                     break;
                     
                 
-                    case E_STRICT: // 2048 //
+                    case E_STRICT: 
                     $errno = 'E_STRICT';
                     break;
                     
                 
-                    case E_RECOVERABLE_ERROR: // 4096 //
+                    case E_RECOVERABLE_ERROR:
                     $errno = 'E_RECOVERABLE_ERROR';
                     break;
                     
                 
-                    case E_DEPRECATED: // 8192 //
+                    case E_DEPRECATED:
                     $errno = 'E_DEPRECATED';
                     break;
                     
                 
-                    case E_USER_DEPRECATED: // 16384 //
+                    case E_USER_DEPRECATED: 
                     $errno = 'E_USER_DEPRECATED';
                     break;
                     
