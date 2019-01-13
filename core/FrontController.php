@@ -1,7 +1,7 @@
 <?php
 
 require_once('config/constants.php');
-require_once('helpers/functions.php');
+
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
@@ -17,6 +17,8 @@ spl_autoload_register(function ($className) {
 });
 
 $debug = new config\HWF_ErrorHandler;
+
+require_once('helpers/functions.php');
   
 //Framework start point
 $init = new config\Router;

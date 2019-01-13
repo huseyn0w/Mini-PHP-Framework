@@ -45,10 +45,87 @@
 </style>
     <h2>We have detected an error!</h2>
     <div class="errors">
-    <?php foreach ($errorArray as $error): ?>
-        <div class="alert alert-danger" role="alert">
-            <p><strong>File: </strong><?php echo $error['filename'] ?></p>
+    <?php foreach ($errorArray as $error): 
+        switch ($error['type']) {
+            case 'E_WARNING': 
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_PARSE':
+                $errorClassName = "info";
+                break;
+
+
+            case 'E_NOTICE':
+                $errorClassName = "info";
+                break;
+
+
+            case 'E_CORE_ERROR': 
+                $errorClassName = "danger";
+                break;
+
+
+            case 'E_CORE_WARNING': 
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_COMPILE_ERROR':
+                $errorClassName = "danger";
+                break;
+
+
+            case 'E_COMPILE_WARNING':
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_USER_ERROR': 
+                $errorClassName = "info";
+                break;
+
+
+            case 'E_USER_WARNING':
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_USER_NOTICE':
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_STRICT': 
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_RECOVERABLE_ERROR': 
+                $errorClassName = "danger";
+                break;
+
+
+            case 'E_DEPRECATED': 
+                $errorClassName = "warning";
+                break;
+
+
+            case 'E_USER_DEPRECATED':
+                $errorClassName = "warning";
+                break;
+
+            default:
+                $errorClassName = "info";
+                break;
+        }
+    ?>
+        <div class="alert alert-<?php echo $errorClassName ?>" role="alert">
+            <p><strong>Type: </strong><?php echo $error['type'] ?></p>
             <p><strong>Error: </strong><?php echo $error['message'] ?></p>
+            <p><strong>File: </strong><?php echo $error['file'] ?></p>
+            <p><strong>Line: </strong><?php echo $error['line'] ?></p>
         </div>
     <?php endforeach; ?>
     </div>

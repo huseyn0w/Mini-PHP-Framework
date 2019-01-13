@@ -22,6 +22,17 @@ class HWF_Controller{
         }
     }
 
+    protected function isAjax(){
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            return true;
+        }
+        return false;
+    }
+
+    protected function pagination(){
+
+    }
+
     public function NotFound(){
         $this->view('404');
     }

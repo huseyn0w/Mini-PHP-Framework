@@ -9,22 +9,30 @@ class HWF_ErrorHandler{
     public function __construct()
     {
         error_reporting(E_ALL | E_STRICT);
-        ini_set('display_errors', 'On');
-        ob_start();
-        set_error_handler([$this, "error_handler"]);
-        register_shutdown_function([$this,'fatal_error_handler']);
+
+        if(DEBUG_MODE === "TRUE"){
+            ini_set('display_errors', 'On');
+            ini_set('log_errors', 0);
+            ob_start();
+            set_error_handler([$this, "error_handler"]);
+            register_shutdown_function([$this, 'fatal_error_handler']);
+        }
+        else{
+            ini_set('display_errors', 'off');
+            ini_set('log_errors', 1);
+            ini_set("error_log", ROOT . '../logs/error_log.log');
+        }
     }
 
     public function debugHandler($errorArray)
     {
-        if (file_exists('../core/config/debug.php')) {
-            require_once('../core/config/debug.php');
+        if (file_exists(ROOT.'/config/debug.php')) {
+            require_once(ROOT.'/config/debug.php');
         }
     }
 
     public function error_handler($errno, $errstr, $errfile, $errline)
     {
-    // если ошибка попадает в отчет (при использовании оператора "@" error_reporting() вернет 0)
         if (error_reporting() & $errno) {
             $errors = array(
                 E_ERROR => 'E_ERROR',
@@ -44,23 +52,106 @@ class HWF_ErrorHandler{
                 E_USER_DEPRECATED => 'E_USER_DEPRECATED',
             );
 
-            echo "we detected an error!";
+            switch ($errno) {
+                case E_ERROR: // 1 //
+                    $errno = 'E_ERROR';
+                    break;
+                
+                    case E_WARNING: // 2 //
+                    $errno = 'E_WARNING';
+                    break;
+                    
+                
+                    case E_PARSE: // 4 //
+                    $errno = 'E_PARSE';
+                    break;
+                    
+                
+                    case E_NOTICE: // 8 //
+                    $errno = 'E_NOTICE';
+                    break;
+                    
+                
+                    case E_CORE_ERROR: // 16 //
+                    $errno = 'E_CORE_ERROR';
+                    break;
+                    
+                
+                    case E_CORE_WARNING: // 32 //
+                    $errno = 'E_CORE_WARNING';
+                    break;
+                    
+                
+                    case E_COMPILE_ERROR: // 64 //
+                    $errno = 'E_COMPILE_ERROR';
+                    break;
+                    
+                
+                    case E_COMPILE_WARNING: // 128 //
+                    $errno = 'E_COMPILE_WARNING';
+                    break;
+                    
+                
+                    case E_USER_ERROR: // 256 //
+                    $errno = 'E_USER_ERROR';
+                    break;
+                    
+                
+                    case E_USER_WARNING: // 512 //
+                    $errno = 'E_USER_WARNING';
+                    break;
+                    
+                
+                    case E_USER_NOTICE: // 1024 //
+                    $errno = 'E_USER_NOTICE';
+                    break;
+                    
+                
+                    case E_STRICT: // 2048 //
+                    $errno = 'E_STRICT';
+                    break;
+                    
+                
+                    case E_RECOVERABLE_ERROR: // 4096 //
+                    $errno = 'E_RECOVERABLE_ERROR';
+                    break;
+                    
+                
+                    case E_DEPRECATED: // 8192 //
+                    $errno = 'E_DEPRECATED';
+                    break;
+                    
+                
+                    case E_USER_DEPRECATED: // 16384 //
+                    $errno = 'E_USER_DEPRECATED';
+                    break;
+                    
+                    default: $errno = 'ERROR';
+                    break;
+                }   
+
+            $errorArray = [
+                [
+                    'type' => $errno,
+                    'message' => $errstr,
+                    'file' => $errfile,
+                    'line' => $errline
+                ]
+            ];
+
+
+            $this->debugHandler($errorArray);
         }
 
-    // не запускаем внутренний обработчик ошибок PHP
         return true;
     }
 
     public function fatal_error_handler()
     {
-    // если была ошибка и она фатальна
         if ($error = error_get_last() and $error['type'] & (E_ERROR | E_PARSE | E_COMPILE_ERROR | E_CORE_ERROR)) {
-        // очищаем буффер (не выводим стандартное сообщение об ошибке)
             ob_end_clean();
-        // запускаем обработчик ошибок
             $this->error_handler($error['type'], $error['message'], $error['file'], $error['line']);
         } else {
-        // отправка (вывод) буфера и его отключение
             ob_end_flush();
         }
     }

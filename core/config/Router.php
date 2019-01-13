@@ -13,6 +13,8 @@ class Router{
         "^login/?$" => ["controller" => "Pages", "method" => "Login"],
         "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/?$" => [],
     ];
+
+
     public function __construct(){
 
 

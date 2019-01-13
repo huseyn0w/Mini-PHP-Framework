@@ -23,10 +23,13 @@ class HWF_Model{
         } catch (PDOException $e) {
             $file = $e->getFile();
             $message = $e->getMessage();
+            $line = $e->getLine();
             $errorArray = [
                 [
+                    'type' => 'PDO Exception',
+                    'message' => $message,
                     'filename' => $file, 
-                    'message' => $message
+                    'line' => $line,
                 ]
             ];
             $debug = new HWF_ErrorHandler;
