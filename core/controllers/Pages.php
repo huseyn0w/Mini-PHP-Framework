@@ -15,13 +15,30 @@ class Pages extends \config\HWF_Controller {
 
     public function login()
     {
-        $this->view('login');
+        if($this->isAjax()){
+
+        }
+        else{
+            $this->view('login');
+        }
+        
     }
 
     public function register()
     {
-        $this->view('register');
+        if ($this->isAjax()) {
+
+        } else {
+            $this->view('register');
+        }
     }
+
+    public function admin()
+    {
+        $this->view('admin/index');
+    }
+
+
 
 
 }
