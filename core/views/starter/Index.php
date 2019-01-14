@@ -20,7 +20,7 @@
             </li>
             <?php if(is_logged_in()): ?>
             <li class="nav-item active">
-              <a class="nav-link" href="/exit">Exit
+              <a class="nav-link" href="/logout">Exit
                 <span class="sr-only"></span>
               </a>
             </li>

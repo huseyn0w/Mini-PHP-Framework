@@ -11,6 +11,7 @@ class Router{
         "^$" => ["controller" => "Pages", "method" => "Index"],
         "^register/?$" => ["controller" => "Users", "method" => "Register"],
         "^login/?$" => ["controller" => "Users", "method" => "Login"],
+        "^logout/?$" => ["controller" => "Users", "method" => "Logout"],
         "^admin/?$" => ["controller" => "Pages", "method" => "Admin"],
         "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/?$" => [],
     ];

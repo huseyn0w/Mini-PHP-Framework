@@ -11,8 +11,8 @@ function redirect($link){
 }
 
 function is_logged_in(){
-    if (!isset($_SESSION['email'])) {
-        return false;
+    if (isset($_SESSION['email'])) {
+        return true;
     }
-    return true;
+    return false;
 }

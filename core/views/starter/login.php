@@ -75,16 +75,20 @@ defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); ?>
   </style>
 
   <body class="text-center">
-    <form class="form-signin">
+    <form class="form-signin" method="POST">
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error_message'];?> </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
         <div class="form-group">
             <input type="email"  required name="email" class="form-control" placeholder="E-mail">
         </div>
         <div class="form-group">
             <input type="password" required name="password" class="form-control" placeholder="Password">
         </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" name="login_me" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">HWF &copy; <?php echo date('Y') ?></p>
     </form>
   </body>

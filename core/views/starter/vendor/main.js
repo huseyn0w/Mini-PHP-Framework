@@ -8,7 +8,7 @@ $(document).ready(function($){
 
 
     $(".register-input").on('blur', function () {
-        var element = $(this);
+      var element = $(this);
        if (checkForEmptyField()) {
             if (passwordCheck() && checkPasswords()) {
                 $(".sendForm").removeAttr('disabled');
@@ -23,10 +23,14 @@ $(document).ready(function($){
                 checkDatabase(element);
             }
         }
+        if ($(".ajax-result").hasClass('alert-warning')) {
+            $(".sendForm").attr('disabled', 'true');
+        }
+        else{
+            $(".sendForm").removeAttr('disabled');
+        }
     });
-    function someFunction(data = null) {
-        console.log(data);
-    }
+
     function checkDatabase(element) {
         var name = element.attr('name');
         var value = element.val();

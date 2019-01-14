@@ -42,12 +42,26 @@ class HWF_Model{
 
     
 
-    public function selectAll($tableName)
+    protected function selectAll($tableName)
     {
 
     }
 
-    public function getBy($parameter, $orderBy = "ID DESC")
+    protected function getBy($parameter, $orderBy = "ID DESC")
+    {
+
+    }
+
+    protected function select($data, $databaseName)
+    {
+
+    }
+
+    protected function delete($data, $databaseName)
+    {
+
+    }
+    protected function insert($incomeData, $whereToInsert, $options, $databaseName)
     {
 
     }

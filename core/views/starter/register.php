@@ -1,5 +1,4 @@
 <?php 
-  
   if(is_logged_in()){
     redirect(HOME_DIR);
   }
@@ -77,6 +76,15 @@
     <form name="regForm" class="form-signin" id="form-check" method="POST">
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+      <?php if (isset($_SESSION['error'])) : ?>
+        <?php
+          foreach ($_SESSION['error'] as $key => $value): ?>
+          <div class="alert alert-danger" role="alert"><?php echo $value  ?></div>
+        <?php 
+          endforeach;
+          unset($_SESSION['error']);
+          endif; 
+        ?>
         <div class="form-group">
             <input type="email" autocomplete="off"  required name="email" class="form-control register-input input-ajax" placeholder="E-mail">
             <span class="check-up"></span>
@@ -96,9 +104,9 @@
             <div class="alert ajax-result" role="alert"></div>
         </div>
         <div class="form-group">
-            <input type="text" autocomplete="off" required name="yourname" class="form-control register-input" placeholder="Name">
+            <input type="text" autocomplete="off" required name="name" class="form-control register-input" placeholder="Name">
         </div>
-      <button class="btn btn-lg btn-primary btn-block sendForm" type="submit" disabled>Register</button>
+      <button class="btn btn-lg btn-primary btn-block sendForm" type="submit" name="register_me" disabled>Register</button>
       <p class="mt-5 mb-3 text-muted">HWF &copy; <?php echo date('Y') ?></p>
     </form>
   </body>
