@@ -18,6 +18,24 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            <?php if(is_logged_in()): ?>
+            <li class="nav-item active">
+              <a class="nav-link" href="/exit">Exit
+                <span class="sr-only"></span>
+              </a>
+            </li>
+          <?php else: ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login
+                <span class="sr-only"></span>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/register">Registration
+                <span class="sr-only"></span>
+              </a>
+            </li>
+            <?php endif; ?>
           </ul>
         </div>
       </div>

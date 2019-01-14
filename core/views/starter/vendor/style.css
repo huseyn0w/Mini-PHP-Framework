@@ -1,17 +1,29 @@
 .check-up{
     background-repeat: no-repeat;
     background-position: center;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 45px;
     background-image: url(loading.svg);
     background-size: cover;
-    display: block;
     position: absolute;
     top: 0;
-    right: -55px;
+    right: -50px;
     display: none;
 }
 
 .form-signin .form-group{
     position: relative;
+}
+
+.ajax-result{
+    position: absolute;
+    top: 0;
+    right: 110%;
+    width: 320px;
+    margin-bottom: 0;
+    display: none;
+}
+
+.ajax-result p{
+    margin-bottom: 0;
 }

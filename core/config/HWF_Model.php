@@ -36,7 +36,6 @@ class HWF_Model{
             $debug->debugHandler($errorArray);
             exit;
         }
-        echo 'salam';
         return $dbh;
 
     }

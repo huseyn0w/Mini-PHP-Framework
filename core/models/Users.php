@@ -32,4 +32,12 @@ class Users extends config\HWF_Model
             return $count;
         }
     }
+
+    public function register(){
+        
+    }
+
+    public function authorization(){
+
+    }
 } 
