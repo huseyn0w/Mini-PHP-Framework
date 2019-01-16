@@ -2,42 +2,29 @@
   if(is_logged_in()){
     redirect(HOME_DIR);
   }
-
-  defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); 
-?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Signin Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/style.css" rel="stylesheet">
-  </head>
+  defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
+  require_template_file('header');
+   
+  ?>  
   <style>
     html,
     body {
     height: 100%;
     }
 
-    body {
-    display: -ms-flexbox;
-    display: -webkit-box;
-    display: flex;
-    -ms-flex-align: center;
-    -ms-flex-pack: center;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #f5f5f5;
+    .reg-container{
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-align: center;
+      -ms-flex-pack: center;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
     }
 
     .form-signin {
@@ -71,8 +58,9 @@
     }
 
   </style>
-
   <body class="text-center">
+    <?php require_template_file('nav'); ?>  
+    <div class="container">
     <form name="regForm" class="form-signin" id="form-check" method="POST">
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
@@ -109,7 +97,9 @@
       <button class="btn btn-lg btn-primary btn-block sendForm" type="submit" name="register_me" disabled>Register</button>
       <p class="mt-5 mb-3 text-muted">HWF &copy; <?php echo date('Y') ?></p>
     </form>
+    </div>
   </body>
 </html>
     <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/cl_editor/jquery.cleditor.min.js"></script>
     <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/main.js"></script>

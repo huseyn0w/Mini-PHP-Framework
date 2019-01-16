@@ -10,10 +10,12 @@ class Router{
     private $routesMap = [
         "^$" => ["controller" => "Pages", "method" => "Index"],
         "^register/?$" => ["controller" => "Users", "method" => "Register"],
+        "^tasks/?$" => ["controller" => "Pages", "method" => "Index"],
         "^login/?$" => ["controller" => "Users", "method" => "Login"],
+        "^about-framework/?$" => ["controller" => "Pages", "method" => "aboutFramework"],
         "^logout/?$" => ["controller" => "Users", "method" => "Logout"],
         "^admin/?$" => ["controller" => "Pages", "method" => "Admin"],
-        "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/?$" => [],
+        "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/(?P<id>[0-9]+)?/?$" => [],
     ];
 
 
@@ -21,6 +23,7 @@ class Router{
 
 
         if($this->findRoute()){
+
             extract($this->route);
 
             if($this->controllerMethodExist($controller, $method)){
@@ -29,7 +32,12 @@ class Router{
 
                 $obj = new $obj;
 
-                $obj->$method();
+                if(isset($id)){
+                    $obj->$method($id);
+                }
+                else{
+                    $obj->$method();
+                }
             }
             else{
                 http_response_code(404);
@@ -73,9 +81,6 @@ class Router{
                                 if (!isset($this->route['method'])) {
                                     $this->route['method'] = "Index";
                                 }
-
-
-
                             }
                         }
                     }

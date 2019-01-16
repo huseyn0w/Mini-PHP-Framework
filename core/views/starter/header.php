@@ -9,9 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>HWF - Framework Starter Bootstrap Template</title>
+    <title>HWF - Framework Starter Template</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/style.css" rel="stylesheet">
 
   </head>

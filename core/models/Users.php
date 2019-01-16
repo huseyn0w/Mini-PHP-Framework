@@ -6,12 +6,12 @@ use \PDOException as PDOException;
 class Users extends config\HWF_Model
 
 {
-    private $db;
+    // private $db;
 
-    public function __construct()
-    {
-        $this->db = $this->establishConnection();
-    }
+    // public function __construct()
+    // {
+    //     $this->db = $this->establishConnection();
+    // }
 
     public function checkEmailExist($email)
     {
@@ -49,7 +49,8 @@ class Users extends config\HWF_Model
         $password = password_hash($password, PASSWORD_BCRYPT);
         $result = $this->db->prepare('INSERT INTO users (`email`, `login`, `password`, `name`) VALUES (?,?,?,?)');
         if($result->execute([$email, $login, $password, $name])){
-            $this->createUserSession($email);
+            $user_id = $this->db->lastInsertId();
+            $this->createUserSession($email, $user_id);
             return true;
         }
         else{
@@ -59,8 +60,10 @@ class Users extends config\HWF_Model
             
     }
 
-    private function createUserSession($email){
+    private function createUserSession($email, $id, $status = 1){
       $_SESSION['email'] = $email;
+      $_SESSION['user_id'] = $id;
+      $_SESSION['status'] = $status;
     }
 
     public function authorization($email, $password){
@@ -70,9 +73,11 @@ class Users extends config\HWF_Model
             $count = $result->rowCount();
             if ($count > 0) {
                 $row = $result->fetch();
+                $user_id = $row['id'];
                 $db_pass = $row['password'];
+                $status = $row['status'];
                 if(password_verify($password, $db_pass)) {
-                    $this->createUserSession($email);
+                    $this->createUserSession($email, $user_id, $status);
                     return true;
                 }
             }

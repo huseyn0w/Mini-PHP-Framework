@@ -10,9 +10,10 @@ use \PDOException as PDOException;
 
 class HWF_Model{
 
+    protected $db;
 
     public function __construct(){
-        
+        $this->db = $this->establishConnection();
     }
 
     protected function establishConnection(){

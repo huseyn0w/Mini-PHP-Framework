@@ -1,72 +1,87 @@
 <?php defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!'); ?>
-<?php require_once('header.php'); ?>
+<?php require_template_file('header'); ?>
 
   <body>
+  <div class="page-loader">
+    <div class="loader-container">
+      <div class="dot dot-1"></div>
+      <div class="dot dot-2"></div>
+      <div class="dot dot-3"></div>
+    </div>
 
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-      <div class="container">
-        <a class="navbar-brand" href="<?php echo HOME_DIR ?>">HWF</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <?php if(is_logged_in()): ?>
-            <li class="nav-item active">
-              <a class="nav-link" href="/logout">Exit
-                <span class="sr-only"></span>
-              </a>
-            </li>
-          <?php else: ?>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login
-                <span class="sr-only"></span>
-              </a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="/register">Registration
-                <span class="sr-only"></span>
-              </a>
-            </li>
-            <?php endif; ?>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"/>
+        </filter>
+      </defs>
+    </svg>
+  </div>
+  <?php require_template_file('nav'); ?>  
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container reg-container">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="mt-5">HWF mini PHP-MVC Framework starter page</h1>
-          <p class="lead">Welcome to  (huseyn0w Framework) starter page. You can edit this text here: (views/starter/index.php)</p>
-          <h4>Technologies that used here:</h4>
-          <ul class="list">
-            <li>PHP (7.2) (OOP)</li>
-            <li>PHP Composer (SOON)</li>
-            <li>SMPT Mailler (SOON)</li>
-            <li>Self error handler class with ability to log errors into a file</li>
-            <li>MVC Pattern</li>
-            <li>PDO</li>
-            <li>MySQL</li>
-          </ul>
-          <h4>Framework properties:</h4>
-          <ul class="list">
-            <li>Very simple to start work with.</li>
-            <li>Has safe methods to work with databases by using PDO class (CRUD included)</li>
-            <li>Easily explained how popular frameworks builds by using MVC pattern.</li>
-            <li>Easy to extend and customize</li>
-            <li>Ability to change/add template easily</li>
-          </ul>
+          <h1 class="mt-5">HWF mini PHP-MVC Framework</h1>
+          <p class="lead">Here is an example of todolist application based on this framework, but you can create everything that you want to with it.</p>
+      <?php if(is_array($data) && $data !== false && !empty($data)): ?>
+          <div class="table-responsive">
+            <div class="orders">
+              <div class="ordering">
+                <p>Order by:</p>
+                <select name="order" id="orderTasks" class="form-control orderTasks">
+                  <option value="Date">Date</option>
+                  <option value="Date">Status</option>
+                </select>
+              </div>
+              <div class="ordering ordering2">
+                <p>Action with market Items:</p>
+                <button class="btn btn-danger deleteMarkedTasks" type="submit">Delete</button>
+              </div>
+            </div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col"><input type="checkbox" id="CheckAll" name="check" value="CheckAll"></th>
+                  <th scope="col">TaskName</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Created Date</th>
+                  <th scope="col">Current status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php $rowCount = 0; foreach($data as $key => $value): $rowCount++; ?>
+                <tr>
+                  <th scope="row"><?php echo $rowCount ?></th>
+                  <td><input type="checkbox" name="check" class="taskCheckbox" value="<?php echo $value['task_id'] ?>"></td>
+                  <td><a href="tasks/read/<?php echo $value['task_id'] ?>"><?php echo $value['header']; ?></a></td>
+                  <td><?php echo ucwords($value['user_name']); ?></td>
+                  <td><?php echo $value['date']; ?></td>
+                  <td>
+                  <?php 
+                      $status = $value['status']; 
+                      $status == 0 ? $status = 'Pending' : $status  = 'Done';
+                      echo $status;
+                  ?>
+                  </td>
+                  <td>
+                    <a href="tasks/update/<?php echo $value['task_id'] ?>" target="_blank" class="btn btn-primary">Edit</a>
+                    <button class="btn btn-danger deleteTask" data-taskID="<?php echo $value['task_id'] ?>" type="submit">Delete</button>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+              </tbody>
+            </table>
+            </div>
+          <?php else: ?>
+          <h2>Tasklist is empty, you can add new task now. Sign in or sign up to do it</h2>
+          <?php endif; ?>
         </div>
       </div>
     </div>
 
-<?php require_once('footer.php') ?>
+<?php require_template_file('footer'); ?>

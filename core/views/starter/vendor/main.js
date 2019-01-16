@@ -1,10 +1,30 @@
 $(document).ready(function($){
 
+
     var password = $('input[name=password]');
     var password_confirm = $('input[name=password_confirm]');
-    var password_length = password.val().length;
-    var password_confirm_length = password_confirm.val().length;
+    if(password.length > 0 && password_confirm.length > 0){
+         var password_length = password.val().length;
+         var password_confirm_length = password_confirm.val().length;
 
+         password.on('click focus', passwordRule);
+         password.on('keyup', passwordCheck);
+         password_confirm.on('click focus blur', checkPasswords);
+    }
+
+    
+   
+
+    $("#CheckAll").on('click', function(){
+        if($(".taskCheckbox").attr('checked')){
+            $(".taskCheckbox").removeAttr('checked');
+            $(".ordering2").hide();
+        }
+        else{
+            $(".ordering2").css('display', 'flex');
+            $(".taskCheckbox").attr('checked', 'checked');
+        }
+    })
 
 
     $(".register-input").on('blur', function () {
@@ -130,7 +150,63 @@ $(document).ready(function($){
         }
     }
 
-    password.on('click focus', passwordRule);
-    password.on('keyup', passwordCheck);
-    password_confirm.on('click focus blur', checkPasswords);
+
+    $(".deleteTask").on("click", function (e) {
+        var deleteButton = $(this);
+        var answerToAction = confirm('Are you sure?');
+        if(answerToAction === true){
+            var taskID = +$(this).data('taskid');
+            var url = "http://hwf/tasks/delete/" + taskID;
+            $.ajax({
+                method: "POST",
+                url: url,
+                beforeSend: function () {
+                    $('.page-loader').fadeIn();
+                },
+                success: function (data) {
+                    $('.page-loader').fadeOut(100, function(){
+                        deleteButton.closest('tr').fadeOut(500);
+                    });
+                    
+                }
+            });
+        }
+        
+    });
+
+    $(".deleteMarkedTasks").on("click", function () {
+        var deleteButton = $(this);
+        var answerToAction = confirm('Are you sure?');
+        if (answerToAction === true) {
+            var tasksArray = [];
+            $('.taskCheckbox').each(function (index, element) {
+                if($(element).attr('checked') == "checked"){
+                    var taskID = $(element).val();
+                    tasksArray.push(taskID);
+                }
+            })
+            var url = "http://hwf/tasks/deletetasks/";
+            $.ajax({
+                method: "POST",
+                url: url,
+                data:{
+                    taskArray: tasksArray
+                },
+                beforeSend: function () {
+                    $('.page-loader').fadeIn();
+                },
+                success: function (data) {
+                    $('.page-loader').fadeOut(100, function () {
+                        if(data == '1'){
+                            location.reload();
+                        }
+                        //deleteButton.closest('tr').fadeOut(500);
+                    });
+
+                }
+            });
+        }
+    })
+
+    
 });
