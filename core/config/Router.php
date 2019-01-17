@@ -10,7 +10,7 @@ class Router{
     private $routesMap = [
         "^$" => ["controller" => "Pages", "method" => "Index"],
         "^register/?$" => ["controller" => "Users", "method" => "Register"],
-        "^tasks/?$" => ["controller" => "Pages", "method" => "Index"],
+        "^tasks/page/?(?P<page>[0-9]+)?$" => ["controller" => "Pages", "method" => "Index"],
         "^login/?$" => ["controller" => "Users", "method" => "Login"],
         "^about-framework/?$" => ["controller" => "Pages", "method" => "aboutFramework"],
         "^logout/?$" => ["controller" => "Users", "method" => "Logout"],
@@ -25,6 +25,9 @@ class Router{
         if($this->findRoute()){
 
             extract($this->route);
+
+            // print_arr($this->route);
+            // exit;
 
             if($this->controllerMethodExist($controller, $method)){
 

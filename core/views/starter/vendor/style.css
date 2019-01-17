@@ -156,3 +156,8 @@ body{
   33.3% {z-index: 2}
   66.6% {z-index: 1}
 }
+
+.pagination{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}

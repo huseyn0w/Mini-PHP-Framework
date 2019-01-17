@@ -208,5 +208,54 @@ $(document).ready(function($){
         }
     })
 
+    $("#orderTasks").on("change", function(){
+        var selectedValue = $(this).val();
+        if (selectedValue === "date" || selectedValue === "status"){
+            var url = "http://hwf/";
+
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {
+                    order: selectedValue
+                },
+                beforeSend: function () {
+                    $('.page-loader').fadeIn();
+                },
+                success: function (data) {
+                    var result = $.parseJSON(data);
+                    $("table.table > tbody").html('');
+                    var taskCount = 0;
+                    result.forEach(function (element, index) {
+                        taskCount++;
+                        var status = null;
+                        if(element.status == 0){
+                            status = "Pending";
+                        }
+                        else if(element.status == 1){
+                            status = "Done";
+                        }
+                        $("table.table > tbody").append(`
+                            <tr>
+                                <th scope="row">${taskCount}</th>
+                                <td><input type="checkbox" name="check" class="taskCheckbox" value="${element.task_id}"></td>
+                                <td><a href="<?php echo HOME_DIR ?>/tasks/read/${element.task_id}">${element.header}</a></td>
+                                <td>${element.user_name}</td>
+                                <td>${element.date}</td>
+                                <td>${status}</td>
+                                <td>
+                                    <a href="tasks/update/${element.task_id}" target="_blank" class="btn btn-primary">Edit</a>
+                                    <button class="btn btn-danger deleteTask" data-taskID="${element.task_id}" type="submit">Delete</button>
+                                </td>
+                            </tr>
+                            `);
+                    });
+                    $('.page-loader').fadeOut();
+
+                }
+            });
+        }
+    });
+
     
 });

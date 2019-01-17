@@ -38,3 +38,7 @@ function require_template_file($filename){
     if(!$fileURL) echo "File {$filename}.php is not found";
     exit;
 }
+
+function generate_pagination(){
+    $pages = new \helpers\Pagination();
+}

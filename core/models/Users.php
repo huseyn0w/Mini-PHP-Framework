@@ -84,4 +84,15 @@ class Users extends config\HWF_Model
             return false;
         }
     }
+
+
+    public function get_current_user_credentials(){
+        if(!is_logged_in()) return false;
+        $user_id = get_current_user_id();
+        if(!$user_id) return false;
+        $query = $this->db->prepare("SELECT * from `users` WHERE id = ?");
+        $query->execute([$user_id]);
+        if(!$result = $query->fetchAll(PDO::FETCH_ASSOC)) return false;
+        return $result;
+    }
 } 

@@ -3,11 +3,15 @@
 
 class Tasks extends config\HWF_Model
 {
-    public function all_tasks()
+    public function all_tasks($currentPage = 1, $order = 'date')
     {
+        $startPoint = (int) ($currentPage - 1) * POSTS_PER_PAGE;
+
+        $posts_per_page = POSTS_PER_PAGE;
+
         $user_id = get_current_user_id();
         if(!$user_id) return false;
-        $query = $this->db->prepare('SELECT t.id as task_id, u.id as user_id, u.name as user_name, u.email as user_email, t.header,t.text, t.author_id as task_author_ID, t.date, t.status FROM `tasks` t LEFT JOIN `users` u ON t.author_id = u.id WHERE u.id = ?');
+        $query = $this->db->prepare("SELECT t.id as task_id, u.id as user_id, u.name as user_name, u.email as user_email, t.header,t.text, t.author_id as task_author_ID, t.date, t.status FROM `tasks` t LEFT JOIN `users` u ON t.author_id = u.id WHERE u.id = ? ORDER BY $order DESC LIMIT $startPoint, $posts_per_page");
         $query->execute([$user_id]);
         if(!$result = $query->fetchAll(PDO::FETCH_ASSOC)) return false;
         return $result;
