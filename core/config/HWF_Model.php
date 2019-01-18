@@ -41,29 +41,36 @@ class HWF_Model{
 
     }
 
-    
+    public function customQuery($query){
 
-    protected function selectAll($tableName)
+    }
+
+    public function selectAll($tableName)
     {
 
     }
 
-    protected function getBy($parameter, $orderBy = "ID DESC")
+    public function get_By($parameter, $orderBy = "ID DESC")
     {
 
     }
 
-    protected function select($data, $databaseName)
+    public function select($data, $tableName)
     {
 
     }
 
-    protected function delete($data, $databaseName)
+    public function delete($data, $tableName)
     {
 
     }
-    protected function insert($incomeData, $whereToInsert, $options, $databaseName)
+    public function insert($incomeData, $whereToInsert, $options, $tableName)
     {
 
+    }
+
+    public function selectCount()
+    {
+        
     }
 }

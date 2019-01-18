@@ -73,7 +73,7 @@
                   ?>
                   </td>
                   <td>
-                    <a href="tasks/update/<?php echo $value['task_id'] ?>" target="_blank" class="btn btn-primary">Edit</a>
+                    <a href="<?php echo HOME_DIR ?>/tasks/update/<?php echo $value['task_id'] ?>" target="_blank" class="btn btn-primary">Edit</a>
                     <button class="btn btn-danger deleteTask" data-taskID="<?php echo $value['task_id'] ?>" type="submit">Delete</button>
                   </td>
                 </tr>

@@ -30,13 +30,17 @@ function get_current_user_status(){
 }
 
 function require_template_file($filename){
-    $fileURL = false;
-    if(file_exists(TEMPLATE_DIRECTORY_URL .'/'.$filename.'.php')){
-        $fileURL = TEMPLATE_DIRECTORY_URL .'/'.$filename.'.php';
+    $fileURL = TEMPLATE_DIRECTORY_URL .'/'.$filename.'.php';
+    $fileURL = str_replace("\\", "/", $fileURL);
+    if(file_exists($fileURL)){
         return require_once($fileURL);
     }
-    if(!$fileURL) echo "File {$filename}.php is not found";
-    exit;
+    else{
+        $fileURL = false;
+        if(!$fileURL) echo "File {$filename}.php is not found";
+        exit;
+    }
+    
 }
 
 function generate_pagination(){

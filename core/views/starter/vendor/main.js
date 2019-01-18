@@ -239,12 +239,12 @@ $(document).ready(function($){
                             <tr>
                                 <th scope="row">${taskCount}</th>
                                 <td><input type="checkbox" name="check" class="taskCheckbox" value="${element.task_id}"></td>
-                                <td><a href="<?php echo HOME_DIR ?>/tasks/read/${element.task_id}">${element.header}</a></td>
+                                <td><a href="http://hwf/tasks/read/${element.task_id}">${element.header}</a></td>
                                 <td>${element.user_name}</td>
                                 <td>${element.date}</td>
                                 <td>${status}</td>
                                 <td>
-                                    <a href="tasks/update/${element.task_id}" target="_blank" class="btn btn-primary">Edit</a>
+                                    <a href="http://hwf/tasks/update/${element.task_id}" target="_blank" class="btn btn-primary">Edit</a>
                                     <button class="btn btn-danger deleteTask" data-taskID="${element.task_id}" type="submit">Delete</button>
                                 </td>
                             </tr>

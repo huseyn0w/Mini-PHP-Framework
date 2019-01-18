@@ -7,8 +7,11 @@ defined ('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 class HWF_Controller{
 
     protected function view($filename, $data = []){
-        if(file_exists('../core/views/'.CURRENT_TEMPLATE.'/'.ucwords($filename).'.php')){
-            require_once('../core/views/'.CURRENT_TEMPLATE.'/'. ucwords($filename) . '.php');
+
+        if($filename == 'index') $filename =  ucwords($filename);
+
+        if(file_exists('../core/views/'.CURRENT_TEMPLATE.'/'.$filename.'.php')){
+            require_once('../core/views/'.CURRENT_TEMPLATE.'/'.$filename . '.php');
         }
         else{
             $this->NotFound();
