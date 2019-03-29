@@ -13,7 +13,7 @@ function print_arr($array):void
 }
 
 /**
- * Redirectring
+ * Redirecting
  * @param $link
  */
 function redirect(string $link){

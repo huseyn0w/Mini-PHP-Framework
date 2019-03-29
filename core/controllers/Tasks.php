@@ -1,17 +1,22 @@
 <?php
 
 namespace controllers;
+use config\HWF_Controller as HWF_Controller;
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
-class Tasks extends \config\HWF_Controller
+class Tasks extends HWF_Controller
 {
     protected $name, $desc, $taskStatus, $taskArray;
 
-
+    /**
+     * Loads Create task template or/and Create task in database
+     */
     public function create()
     {
+
         if(isset($_POST['add_task'])){
+            if(!csrf_checkout()) redirect(HOME_DIR.'/');
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $result = $this->filter_data($_POST);
 
@@ -34,15 +39,21 @@ class Tasks extends \config\HWF_Controller
     }
 
 
-    public function update($id = false)
+    /**
+     * Update task by its ID
+     * @param int $id
+     */
+    public function update(int $id)
     {
-        if (!$id) redirect(HOME_DIR);
+        if (!isset($id)) redirect(HOME_DIR);
         $id = (int)$id;
 
         if (isset($_POST['update_task'])) {
+
+            if(!csrf_checkout()) redirect(HOME_DIR.'/');
+
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $result = $this->filter_data($_POST);
-
 
 
             if (is_array($result) && !empty($result)) {
@@ -64,14 +75,19 @@ class Tasks extends \config\HWF_Controller
         $loadTask = $userModel->showTask($id);
         if (is_array($loadTask) && !empty($loadTask)) {
             $this->view('tasks/edit', $loadTask);
-            exit;
         }
-        redirect(HOME_DIR); 
+        else{
+            redirect(HOME_DIR);
+        }
     }
 
-    public function read($id = false)
+    /**
+     * Read task by its ID
+     * @param int $id
+     */
+    public function read(int $id):void
     {
-        if(!$id) redirect(HOME_DIR);
+        if(!isset($id)) redirect(HOME_DIR);
         $id = (int)$id;
         $userModel = $this->model('tasks');
         $queryResult = $userModel->showTask($id);
@@ -82,10 +98,14 @@ class Tasks extends \config\HWF_Controller
         }
     }
 
-    public function deleteTasks(){
+    /**
+     * Deleted multiple tasks at once via using AJAX
+     */
+    public function deleteTasksAjax(){
         if(!$this->isAjax()) redirect(HOME_DIR);
 
         if(isset($_POST['taskArray'])){
+            if(!csrf_checkout()) redirect(HOME_DIR.'/');
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $result = $this->filter_data($_POST);
             if (is_array($result) && !empty($result)) {
@@ -104,13 +124,18 @@ class Tasks extends \config\HWF_Controller
         }
     }
 
-    public function delete($id = false)
+    /**
+     * Delete single task via using Ajax
+     * @param int $id
+     */
+    public function delete(int $id)
     {
-        if(!$id) redirect(HOME_DIR);
+        if(!isset($id) || !$this->isAjax() || !csrf_checkout()) redirect(HOME_DIR);
+
         $id = (int) $id;
         $userModel = $this->model('tasks');
         $queryResult = $userModel->deleteTask($id);
-        if ($queryResult === true) {
+        if ($queryResult) {
             echo 1;
             return;
         }

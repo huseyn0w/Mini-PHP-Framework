@@ -92,3 +92,5 @@
     </div>
   </body>
 </html>
+
+<?php require_template_file('footer'); ?>

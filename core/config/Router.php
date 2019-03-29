@@ -77,9 +77,10 @@ class Router{
             if (preg_match("#{$key}#i", $url, $matches)) {
                 $matchedCount++;
 
-                //Check if RoutesMap array right side has defined controller or method names)
+                //Check if RoutesMap array right side has defined controller or method names
                 if(empty($value)) {
                     foreach ($matches as $key2 => $value2) {
+                        // Remove ingeger keys from matches array
                         if (is_int($key2)) {
                             unset($matches[$key2]);
                         }
@@ -102,7 +103,7 @@ class Router{
 
 
                     if (isset($matches['id'])) {
-                        $this->route['id'] = (int)$matches['id'];
+                        $this->route['id'] = (int) $matches['id'];
                     }
                 }
                 else{

@@ -3,45 +3,48 @@ namespace controllers;
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
+use config\HWF_Controller as HWF_Controller;
 
-class Users extends \config\HWF_Controller
+
+class Users extends HWF_Controller
 {
     protected $email, $login, $password, $password_confirm, $name;
 
 
+    /**
+     * User login
+     */
     public function login()
     {
-        $current_token = get_current_token();
-        if ($this->isAjax()) {
+        if (isset($_POST['login_me'])) {
 
-        } else {
+            if(!csrf_checkout()) redirect(HOME_DIR.'/login');
 
-            if (isset($_POST['login_me'])) {
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $result = $this->filter_data($_POST);
 
-                if(!csrf_checkout()) redirect(HOME_DIR.'/login');
-
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                $result = $this->filter_data($_POST);
-
-                if ($result === true) {
-                    $userModel = $this->model('users');
-                    $queryResult = $userModel->authorization($this->email, $this->password);
-                    if ($queryResult) {
-                        redirect(HOME_DIR);
-                    } else {
-                        $_SESSION['error_message'] = 'Wrong credentials, please try again!';
-                        redirect(HOME_DIR.'/login');
-                    }
+            if ($result === true) {
+                $userModel = $this->model('users');
+                $queryResult = $userModel->authorization($this->email, $this->password);
+                if ($queryResult) {
+                    redirect(HOME_DIR);
+                } else {
+                    $_SESSION['error_message'] = 'Wrong credentials, please try again!';
+                    redirect(HOME_DIR.'/login');
                 }
             }
-            $this->view('login');
         }
+        $this->view('login');
 
     }
 
+    /**
+     * User registration
+     */
     public function register()
     {
         if ($this->isAjax()) {
+            if(!csrf_checkout()) redirect(HOME_DIR.'/register');
             if( isset($_POST['name']) && isset($_POST['value']) ){
                 $input_name = $_POST['name'];
                 $input_value = $_POST['value'];
@@ -97,6 +100,9 @@ class Users extends \config\HWF_Controller
         }
     }
 
+    /**
+     * Logout user from the system
+     */
     public function logout(){
         unset($_SESSION['email']);
         unset($_SESSION['name']);
@@ -106,9 +112,13 @@ class Users extends \config\HWF_Controller
     }
 
 
-    
-
-    private function checkFromDatabase($input_name, $input_value)
+    /**
+     * Checking existing of inputted name and value in database via AJAX
+     * @param string $input_name
+     * @param string $input_value
+     * @return false|string
+     */
+    private function checkFromDatabase(string $input_name, string $input_value)
     {
         $userModel = $this->model('users');
 

@@ -40,6 +40,7 @@ require_template_file('header');
                     <label for="task-pending">Pending</label>
                     <input type="radio" name="task-status" value="0" <?php if($data['status'] == 0): ?> checked <?php endif; ?> id="task-pending">
                 </div>
+                <input type="hidden" name="csrf" value="<?php echo generate_csrf_token() ?>">
                 <input type="submit" class="btn btn-lg btn-primary btn-block addTask sendForm" name="update_task" value="Update task" />
             </form>
         </div>

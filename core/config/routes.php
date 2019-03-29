@@ -11,7 +11,6 @@ $routesMap = [
     "^login/?$" => ["controller" => "Users", "method" => "Login"],
     "^about-framework/?$" => ["controller" => "Pages", "method" => "aboutFramework"],
     "^logout/?$" => ["controller" => "Users", "method" => "Logout"],
-    "^admin/?$" => ["controller" => "Pages", "method" => "Admin"],
     "^tasks/page/?(?P<page>[0-9]+)?$" => ["controller" => "Pages", "method" => "Index"],
     "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/(?P<id>[0-9]+)?/?$" => [],
 ];

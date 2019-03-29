@@ -1,9 +1,15 @@
 <?php
 
+use config\HWF_Model as HWF_Model;
 
-class Pagination extends config\HWF_Model
+class Pagination extends HWF_Model
 {
-    public function pageCount()
+
+    /**
+     * Return Count of pages for current logged user
+     * @return int
+     */
+    public function pageCount():int
     {
         $user_id = get_current_user_id();
         if (!$user_id) return false;

@@ -3,10 +3,11 @@
 namespace controllers;
 
 use helpers\Pagination as Pagination;
+use config\HWF_Controller as HWF_Controller;
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
-class Pages extends \config\HWF_Controller {
+class Pages extends HWF_Controller {
 
     private $db;
 
@@ -17,6 +18,7 @@ class Pages extends \config\HWF_Controller {
 
         if($this->isAjax()){
             if(isset($_POST['order'])){
+                if(!csrf_checkout()) redirect(HOME_DIR.'/');
                 $order = filter_var($_POST['order'], FILTER_SANITIZE_STRING);
                 if($order == "date" || $order == "status"){
                     $this->db = $this->model('tasks');
@@ -53,16 +55,6 @@ class Pages extends \config\HWF_Controller {
     }
 
 
-    /**
-     * Return Admin Page or login page if user is not logged in
-     */
-    public function admin():void
-    {
-        if(!is_logged_in()){
-            redirect(HOME_DIR . '/login/');
-        }
-        $this->view('admin/index');
-    }
 
     /**
      * Return AboutFramework Page

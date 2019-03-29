@@ -108,6 +108,4 @@
     </div>
   </body>
 </html>
-    <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/jquery/jquery.min.js"></script>
-    <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/cl_editor/jquery.cleditor.min.js"></script>
-    <script src="<?php echo CORE_ROOT ?>views/<?php echo CURRENT_TEMPLATE ?>/vendor/main.js"></script>
+<?php require_template_file('footer'); ?>

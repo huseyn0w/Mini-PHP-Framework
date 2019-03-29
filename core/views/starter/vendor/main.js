@@ -24,7 +24,17 @@ $(document).ready(function($){
             $(".ordering2").css('display', 'flex');
             $(".taskCheckbox").attr('checked', 'checked');
         }
-    })
+    });
+
+    $(".taskCheckbox").on('click', function(){
+        if($(this).attr('checked') !== 'checked'){
+            $(this).attr('checked', 'checked');
+        }
+        else{
+            $(this).removeAttr('checked');
+        }
+        $(".ordering2").css('display', 'flex');
+    });
 
 
     $(".register-input").on('blur', function () {
@@ -57,10 +67,11 @@ $(document).ready(function($){
         
         $.ajax({
             method: "POST",
-            url: "http://hwf/register",
+            url: site_url + "/register",
             data: {
                 name: name,
-                value: value
+                value: value,
+                csrf: token
             },
             beforeSend: function (xhr) {
                element.next('.check-up').fadeIn();
@@ -156,18 +167,18 @@ $(document).ready(function($){
         var answerToAction = confirm('Are you sure?');
         if(answerToAction === true){
             var taskID = +$(this).data('taskid');
-            var url = "http://hwf/tasks/delete/" + taskID;
+            var url = site_url + "/tasks/delete/" + taskID;
             $.ajax({
                 method: "POST",
                 url: url,
+                data:{
+                    csrf: token
+                },
                 beforeSend: function () {
                     $('.page-loader').fadeIn();
                 },
                 success: function (data) {
-                    $('.page-loader').fadeOut(100, function(){
-                        deleteButton.closest('tr').fadeOut(500);
-                    });
-                    
+                    location.reload();
                 }
             });
         }
@@ -184,13 +195,15 @@ $(document).ready(function($){
                     var taskID = $(element).val();
                     tasksArray.push(taskID);
                 }
-            })
-            var url = "http://hwf/tasks/deletetasks/";
+            });
+
+            var url = site_url + "/tasks/deleteTasksAjax/";
             $.ajax({
                 method: "POST",
                 url: url,
                 data:{
-                    taskArray: tasksArray
+                    taskArray: tasksArray,
+                    csrf: token
                 },
                 beforeSend: function () {
                     $('.page-loader').fadeIn();
@@ -211,13 +224,14 @@ $(document).ready(function($){
     $("#orderTasks").on("change", function(){
         var selectedValue = $(this).val();
         if (selectedValue === "date" || selectedValue === "status"){
-            var url = "http://hwf/";
+            var url = site_url + "/";
 
             $.ajax({
                 method: "POST",
                 url: url,
                 data: {
-                    order: selectedValue
+                    order: selectedValue,
+                    csrf: token
                 },
                 beforeSend: function () {
                     $('.page-loader').fadeIn();
@@ -239,12 +253,12 @@ $(document).ready(function($){
                             <tr>
                                 <th scope="row">${taskCount}</th>
                                 <td><input type="checkbox" name="check" class="taskCheckbox" value="${element.task_id}"></td>
-                                <td><a href="http://hwf/tasks/read/${element.task_id}">${element.header}</a></td>
+                                <td><a href="${site_url}/tasks/read/${element.task_id}">${element.header}</a></td>
                                 <td>${element.user_name}</td>
                                 <td>${element.date}</td>
                                 <td>${status}</td>
                                 <td>
-                                    <a href="http://hwf/tasks/update/${element.task_id}" target="_blank" class="btn btn-primary">Edit</a>
+                                    <a href="${site_url}/tasks/update/${element.task_id}" target="_blank" class="btn btn-primary">Edit</a>
                                     <button class="btn btn-danger deleteTask" data-taskID="${element.task_id}" type="submit">Delete</button>
                                 </td>
                             </tr>

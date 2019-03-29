@@ -42,8 +42,10 @@ class Pagination extends \config\HWF_Controller{
             'totalPageCount' => $totalPageCount
         ];
 
+        if($totalPageCount > 1){
+            $this->view('tasks/pagination', $paginationData);
+        }
 
-        $this->view('tasks/pagination', $paginationData);
     }
 
     public function getCurrentPage(){

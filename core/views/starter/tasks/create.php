@@ -33,6 +33,7 @@ if (!is_logged_in()) {
                 <div class="form-group">
                     <textarea class="form-control" placeholder="Task description" name="desc" required rows="3"></textarea>
                 </div>
+                <input type="hidden" name="csrf" value="<?php echo generate_csrf_token() ?>">
                 <input type="submit" class="btn btn-lg btn-primary btn-block addTask sendForm" name="add_task" value="Add" />
             </form>
         </div>
