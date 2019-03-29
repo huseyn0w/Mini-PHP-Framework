@@ -8,7 +8,7 @@ class Pagination extends \config\HWF_Controller{
 
     private $currentPage = 1;
 
-    public function __construct($action = 'render')
+    public function __construct()
     {
         $string = implode('/', $_GET);
         $array = [];
@@ -28,32 +28,25 @@ class Pagination extends \config\HWF_Controller{
         else {
             $this->currentPage = 1;
         }
-        
-
-
-        $userModel = $this->model('pagination');
-        $totalPageCount = $userModel->pageCount();
-
-        // if($this->currentPage > $totalPageCount){
-        //     $this->currentPage = $totalPageCount;
-        //     redirect(HOME_DIR . '/tasks/page/'.$this->currentPage);
-        // }
-        
-
-        if($action == 'render'){
-
-            $paginationData = [
-                'activePage' => $this->currentPage,
-                'totalPageCount' => $totalPageCount
-            ];
-
-            $this->view('tasks/pagination', $paginationData);
-        }
 
         
     }
 
-    public function getCurretpage(){
+    public function renderPagination()
+    {
+        $userModel = $this->model('pagination');
+        $totalPageCount = $userModel->pageCount();
+
+        $paginationData = [
+            'activePage' => $this->currentPage,
+            'totalPageCount' => $totalPageCount
+        ];
+
+
+        $this->view('tasks/pagination', $paginationData);
+    }
+
+    public function getCurrentPage(){
         return $this->currentPage;
     }
 

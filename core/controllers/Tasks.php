@@ -8,13 +8,6 @@ class Tasks extends \config\HWF_Controller
 {
     protected $name, $desc, $taskStatus, $taskArray;
 
-    // public function index()
-    // {
-    //     $this->db = $this->model('tasks');
-    //     $all_tasks = $this->db->all_tasks();
-
-    //     $this->view('index', $all_tasks);
-    // }
 
     public function create()
     {

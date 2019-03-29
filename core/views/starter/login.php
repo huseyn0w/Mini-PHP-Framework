@@ -1,4 +1,4 @@
-<?php 
+<?php
 
   if (is_logged_in()) {
     redirect(HOME_DIR);
@@ -59,27 +59,36 @@
     border-top-right-radius: 0;
     }
 
+
   </style>
 
   <body class="text-center">
     <?php require_template_file('nav'); ?>  
     <div class="container">
-      <form class="form-signin" method="POST">
-        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <?php if(isset($_SESSION['error_message'])): ?>
-        <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error_message'];?> </div>
-        <?php unset($_SESSION['error_message']); ?>
-      <?php endif; ?>
-          <div class="form-group">
-              <input type="email"  required name="email" class="form-control" placeholder="E-mail">
+      <div class="row form-cover align-items-center">
+          <div class="col-12">
+              <form class="form-signin" method="POST">
+                  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                  <?php if(isset($_SESSION['error_csrf'])): ?>
+                      <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error_csrf'];?> </div>
+                      <?php unset($_SESSION['error_csrf']); ?>
+                  <?php endif; ?>
+                  <?php if(isset($_SESSION['error_message'])): ?>
+                      <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error_message'];?> </div>
+                      <?php unset($_SESSION['error_message']); ?>
+                  <?php endif; ?>
+                  <div class="form-group">
+                      <input type="email"  required name="email" class="form-control" placeholder="E-mail">
+                  </div>
+                  <div class="form-group">
+                      <input type="password" required name="password" class="form-control" placeholder="Password">
+                  </div>
+                  <input type="hidden" name="csrf" value="<?php echo generate_csrf_token() ?>">
+                  <button class="btn btn-lg btn-primary btn-block" name="login_me" type="submit">Sign in</button>
+                  <p class="mt-5 mb-3 text-muted">HWF &copy; <?php echo date('Y') ?></p>
+              </form>
           </div>
-          <div class="form-group">
-              <input type="password" required name="password" class="form-control" placeholder="Password">
-          </div>
-        <button class="btn btn-lg btn-primary btn-block" name="login_me" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">HWF &copy; <?php echo date('Y') ?></p>
-      </form>
+      </div>
     </div>
   </body>
 </html>

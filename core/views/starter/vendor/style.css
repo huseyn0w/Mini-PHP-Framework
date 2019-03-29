@@ -16,6 +16,10 @@ body{
     display: none;
 }
 
+.form-cover{
+    height: 100vh;
+}
+
 .form-signin .form-group{
     position: relative;
 }

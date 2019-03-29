@@ -6,7 +6,12 @@ defined ('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
 class HWF_Controller{
 
-    protected function view($filename, $data = []){
+    /**
+     * Loading view file from template
+     * @param string $filename
+     * @param array $data
+     */
+    protected function view(string $filename, $data = []):void{
 
         if($filename == 'index') $filename =  ucwords($filename);
 
@@ -18,25 +23,37 @@ class HWF_Controller{
         }
     }
 
-    protected function model($modelname){
+
+    /**
+     * Loading Model Object from models folder
+     * @param string $modelname
+     * @return object
+     */
+    protected function model(string $modelname) :object {
         if(file_exists('../core/models/'.ucwords($modelname).'.php')){
             require_once('../core/models/' . ucwords($modelname) . '.php');
             return new $modelname;
         }
     }
 
-    protected function isAjax(){
+    /**
+     * Checking whether it is ajax request or not
+     * @return bool
+     */
+    protected function isAjax():bool{
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             return true;
         }
         return false;
     }
 
-    protected function pagination(){
 
-    }
-
-    protected function filter_data($array)
+    /**
+     * Filtering data in array
+     * @param array $array
+     * @return array|bool
+     */
+    protected function filter_data(array $array)
     {
 
         $errors = [];
@@ -111,8 +128,12 @@ class HWF_Controller{
         return true;
     }
 
+    /**
+     * Return 404 page
+     */
     public function NotFound(){
-        $this->view('404');
+        return $this->view('404');
     }
+
     
 }

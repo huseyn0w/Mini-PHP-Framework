@@ -11,10 +11,15 @@ class Users extends \config\HWF_Controller
 
     public function login()
     {
+        $current_token = get_current_token();
         if ($this->isAjax()) {
 
         } else {
+
             if (isset($_POST['login_me'])) {
+
+                if(!csrf_checkout()) redirect(HOME_DIR.'/login');
+
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $result = $this->filter_data($_POST);
 
@@ -26,7 +31,6 @@ class Users extends \config\HWF_Controller
                     } else {
                         $_SESSION['error_message'] = 'Wrong credentials, please try again!';
                         redirect(HOME_DIR.'/login');
-                        exit;
                     }
                 }
             }
@@ -67,12 +71,15 @@ class Users extends \config\HWF_Controller
             die;
         } else {
             if(isset($_POST['register_me'])){
+
+                if(!csrf_checkout()) redirect(HOME_DIR.'/register');
+
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $result = $this->filter_data($_POST);
 
                 if(is_array($result) && !empty($result)){
-                    $_SESSION['error'] = $result;
+                    $_SESSION['error_message'] = $result;
                     redirect(HOME_DIR . '/register');
                 }
 
@@ -83,7 +90,7 @@ class Users extends \config\HWF_Controller
                         redirect(HOME_DIR);
                     }
                 }
-                $_SESSION['error'] = $queryResult;
+                $_SESSION['error_message'] = $queryResult;
                 redirect(HOME_DIR . '/register');
             }
             $this->view('register');
@@ -93,6 +100,7 @@ class Users extends \config\HWF_Controller
     public function logout(){
         unset($_SESSION['email']);
         unset($_SESSION['name']);
+        unset($_SESSION['token']);
         session_destroy();
         redirect(HOME_DIR);
     }

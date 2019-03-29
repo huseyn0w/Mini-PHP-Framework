@@ -2,34 +2,38 @@
 namespace config;
 
 defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
+
+
+
 class Router{
+
 
     private $route = [];
 
-
-    private $routesMap = [
-        "^$" => ["controller" => "Pages", "method" => "Index"],
-        "^register/?$" => ["controller" => "Users", "method" => "Register"],
-        "^tasks/page/?(?P<page>[0-9]+)?$" => ["controller" => "Pages", "method" => "Index"],
-        "^login/?$" => ["controller" => "Users", "method" => "Login"],
-        "^about-framework/?$" => ["controller" => "Pages", "method" => "aboutFramework"],
-        "^logout/?$" => ["controller" => "Users", "method" => "Logout"],
-        "^admin/?$" => ["controller" => "Pages", "method" => "Admin"],
-        "^(?P<controller>[a-z-]+)/?(?P<method>[a-z-]+)?/(?P<id>[0-9]+)?/?$" => [],
-    ];
+    private $routesMap = [];
 
 
-    public function __construct(){
+    /**
+     * Router constructor.
+     * Finding Route and create instance of object or return 404 Page
+     * @param $routesMap
+     */
+    public function __construct($routesMap){
+
+        $this->routesMap = $routesMap;
 
 
         if($this->findRoute()){
 
-            extract($this->route);
+            $controller = $this->route['controller'];
+            $method = $this->route['method'];
 
-            // print_arr($this->route);
-            // exit;
+            if(isset($this->route['id'])){
+                $id = $this->route['id'];
+            }
 
             if($this->controllerMethodExist($controller, $method)){
+
 
                 $obj = '\controllers\\'.$controller;
 
@@ -44,20 +48,24 @@ class Router{
             }
             else{
                 http_response_code(404);
-                require_once('../core/views/' . CURRENT_TEMPLATE . '/404.php');
-                exit;
+                $hwfController = new HWF_Controller;
+                $hwfController->NotFound();
             }
 
         }
         else{
             http_response_code(404);
-            require_once('../core/views/'. CURRENT_TEMPLATE .'/404.php');
-            exit;
+            $hwfController = new HWF_Controller;
+            $hwfController->NotFound();
         }
         
     }
 
-    private function findRoute()
+     /**
+     * Finding route through array in routes.php file and write controller, method names in $this->route array.
+     * @return bool
+     */
+    private function findRoute() :bool
     {
         $url = $this->getURL();
 
@@ -66,31 +74,41 @@ class Router{
 
         foreach ($this->routesMap as $key => $value) {
 
-            //print_arr($key);
-            //print_arr($value).'\n';
-
             if (preg_match("#{$key}#i", $url, $matches)) {
                 $matchedCount++;
-                if(empty($value)){
-                    foreach ($matches as $controller => $method) {
-                        if ($method == "") {
-                            $this->route = $value;
 
-                        } else {
-                            if (is_string($controller)) {
-
-                                $this->route[$controller] = $this->controllerNameFix($method);
-
-                                if (!isset($this->route['method'])) {
-                                    $this->route['method'] = "Index";
-                                }
-                            }
+                //Check if RoutesMap array right side has defined controller or method names)
+                if(empty($value)) {
+                    foreach ($matches as $key2 => $value2) {
+                        if (is_int($key2)) {
+                            unset($matches[$key2]);
                         }
+                    }
+
+                    if (isset($matches['controller']) && !empty($matches['controller']) && is_string($matches['controller'])) {
+                        $controller = $matches['controller'];
+                    } else {
+                        $controller = "Pages";
+                    }
+
+                    if (isset($matches['method']) && !empty($matches['method']) && is_string($matches['method'])) {
+                        $method = $matches['method'];
+                    } else {
+                        $method = "Index";
+                    }
+
+                    $this->route['controller'] = $this->controllerNameFix($controller);
+                    $this->route['method'] = $method;
+
+
+                    if (isset($matches['id'])) {
+                        $this->route['id'] = (int)$matches['id'];
                     }
                 }
                 else{
                     $this->route = $value;
                 }
+
                 break;
             }
 
@@ -99,28 +117,45 @@ class Router{
         return true;
     }
 
-    private function controllerNameFix($controllername){
+    /**
+     * Filter controllername by removing unnecessarry characters and making name in CamelCase format
+     * @param string $controllerName
+     * @return string
+     */
+    private function controllerNameFix(string $controllerName):string {
         $pattern = "#[\-_]+#";
         $replacement = " ";
-        $controllername = preg_replace($pattern, $replacement, $controllername);
-        $controllername = ucwords($controllername);
-        $controllername = str_replace(" ", "", $controllername);
-        return $controllername;
+        $controllerName = preg_replace($pattern, $replacement, $controllerName);
+        $controllerName = ucwords($controllerName);
+        $controllerName = str_replace(" ", "", $controllerName);
+        return $controllerName;
     }
 
-    private function getURL(){
+    /**
+     * Getting Url from GET Method, Filter and returning it
+     * @return string
+     */
+    private function getURL():string {
 
         if(isset($_GET['route'])){
+
             $url = rtrim($_GET['route'], '/');
 
             $url = filter_var($_GET['route'], FILTER_SANITIZE_URL);
+
 
             return $url;
         }
     }
 
 
-    private function controllerMethodExist($controllerName, $methodName){
+    /**
+     * Check whether controller class name file and method has been founded or not
+     * @param string $controllerName
+     * @param string $methodName
+     * @return bool
+     */
+    private function controllerMethodExist(string $controllerName, string $methodName) :bool {
         if(!class_exists('\controllers\\'.$controllerName) || !method_exists('\controllers\\'.$controllerName, $methodName)){
             return false;
         }

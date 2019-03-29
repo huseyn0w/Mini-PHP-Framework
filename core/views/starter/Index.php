@@ -18,7 +18,7 @@
       </defs>
     </svg>
   </div>
-  <?php require_template_file('nav'); ?>  
+  <?php require_template_file('nav'); ?>
 
     <!-- Page Content -->
     <div class="container reg-container">
@@ -66,8 +66,8 @@
                   <td><?php echo ucwords($value['user_name']); ?></td>
                   <td><?php echo $value['date']; ?></td>
                   <td>
-                  <?php 
-                      $status = $value['status']; 
+                  <?php
+                      $status = $value['status'];
                       $status == 0 ? $status = 'Pending' : $status  = 'Done';
                       echo $status;
                   ?>
@@ -85,9 +85,7 @@
           <h2>Tasklist is empty, you can add new task now. Sign in or sign up to do it</h2>
           <?php endif; ?>
 
-          <?php 
-            if(is_logged_in()) generate_pagination();
-          ?>
+          <?php generate_pagination(); ?>
         </div>
       </div>
     </div>

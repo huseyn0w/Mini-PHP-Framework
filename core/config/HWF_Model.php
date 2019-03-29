@@ -41,6 +41,26 @@ class HWF_Model{
 
     }
 
+    public function create()
+    {
+
+    }
+
+    public function read()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete($data, $tableName)
+    {
+
+    }
+
     public function customQuery($query){
 
     }
@@ -60,14 +80,6 @@ class HWF_Model{
 
     }
 
-    public function delete($data, $tableName)
-    {
-
-    }
-    public function insert($incomeData, $whereToInsert, $options, $tableName)
-    {
-
-    }
 
     public function selectCount()
     {

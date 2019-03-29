@@ -10,9 +10,10 @@
 
 
 **Technologies that used in creation of this framework:**
-- PHP 7.2
+- PHP 7
 - OOP
 - MVC Pattern
-- MYSQL 
+- MySQL 
 - PDO
+- Composer
 - Bootstrap 4 as a starter template

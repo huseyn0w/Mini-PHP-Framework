@@ -6,6 +6,9 @@ defined('EXTERNAL_ACCESS') or die('EXTERNAL ACCESS DENIED!');
 
 class HWF_ErrorHandler{
 
+    /**
+     * HWF_ErrorHandler constructor.
+     */
     public function __construct()
     {
         error_reporting(E_ALL | E_STRICT);
@@ -24,14 +27,27 @@ class HWF_ErrorHandler{
         }
     }
 
-    public function debugHandler($errorArray)
+
+    /**
+     * Loads debug file
+     * @param array $errorArray
+     */
+    public function debugHandler(array $errorArray)
     {
         if (file_exists(ROOT.'/config/debug.php')) {
             require_once(ROOT.'/config/debug.php');
         }
     }
 
-    public function error_handler($errno, $errstr, $errfile, $errline)
+    /**
+     * Custom Error Handler
+     * @param int $errno
+     * @param string $errstr
+     * @param string $errfile
+     * @param string $errline
+     * @return bool
+     */
+    public function error_handler(int $errno, string $errstr, string $errfile, string $errline):bool
     {
         if (error_reporting() & $errno) {
             $errors = array(
@@ -146,7 +162,10 @@ class HWF_ErrorHandler{
         return true;
     }
 
-    public function fatal_error_handler()
+    /**
+     * Catching Last error and sending it to error handler method
+     */
+    public function fatal_error_handler():void
     {
         if ($error = error_get_last() and $error['type'] & (E_ERROR | E_PARSE | E_COMPILE_ERROR | E_CORE_ERROR)) {
             ob_end_clean();

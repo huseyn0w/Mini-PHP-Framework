@@ -11,16 +11,16 @@
       <div class="row">
         <div class="col-lg-12">
           <h1 class="mt-5">HWF mini PHP-MVC Framework starter page</h1>
-          <p class="lead">Welcome to  (huseyn0w Framework) starter page. You can edit this text here: (views/starter/index.php)</p>
+          <p class="lead">Welcome to  (huseyn0w Framework) starter page. You can edit this text here: (core/views/starter/index.php)</p>
           <h4>Technologies that used here:</h4>
+           <p>To change constants values change core/config/constants.php file</p>
+           <p>To change/add routes change core/config/routes.php file</p>
           <ul class="list">
-            <li>PHP (7.2) (OOP)</li>
-            <li>PHP Composer (SOON)</li>
-            <li>SMPT Mailler (SOON)</li>
+            <li>PHP 7 + OOP</li>
+            <li>Composer</li>
             <li>Self error handler class with ability to log errors into a file</li>
             <li>MVC Pattern</li>
-            <li>PDO</li>
-            <li>MySQL</li>
+            <li>MySQL + PDO</li>
           </ul>
           <h4>Framework properties:</h4>
           <ul class="list">
